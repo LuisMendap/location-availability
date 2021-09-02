@@ -5,6 +5,8 @@
   "admin/editor.location-availability.product-location-availability.orderBy.title": "admin/editor.location-availability.product-location-availability.orderBy.title",
   "admin/editor.location-availability.product-location-availability.orderBy.faster": "admin/editor.location-availability.product-location-availability.orderBy.faster",
   "admin/editor.location-availability.product-location-availability.orderBy.cheaper": "admin/editor.location-availability.product-location-availability.orderBy.cheaper",
+  "admin/editor.location-availability.product-location-availability.distance.title": "admin/editor.location-availability.product-location-availability.distance.title",
+  "admin/editor.location-availability.product-location-availability.distance.miles": "admin/editor.location-availability.product-location-availability.distance.miles",
   "admin/editor.location-availability.product-location-availability.pickupFirst.title": "admin/editor.location-availability.product-location-availability.pickupFirst.title",
   "admin/editor.location-availability.availability-header.title": "admin/editor.location-availability.availability-header.title",
   "admin/editor.location-availability.availability-header.description": "admin/editor.location-availability.availability-header.description",

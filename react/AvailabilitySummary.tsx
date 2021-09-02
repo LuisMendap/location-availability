@@ -19,6 +19,7 @@ const DEFAULT = {
   MAX_ITEMS: 2,
   ORDER_BY: 'faster',
   PICKUP_FIRST: true,
+  MEASUREMENTS: 'miles'
 }
 
 const CSS_HANDLES = [
@@ -28,17 +29,20 @@ const CSS_HANDLES = [
   'regularShipping',
   'time',
   'ETA',
+  'distance',
+  'distanceEstimate',
 ] as const
 
 interface CheckAvailabilityProps {
   maxItems: number
   orderBy: string
-  pickupFirst: boolean
+  pickupFirst: boolean,
+  measurements: string
 }
 
 const AvailabilitySummary: StorefrontFunctionComponent<
   WrappedComponentProps & CheckAvailabilityProps
-> = ({ intl, maxItems, orderBy, pickupFirst }: any) => {
+> = ({ intl, maxItems, orderBy, pickupFirst, measurements}: any) => {
   const [getSimulation, { data, loading }] = useLazyQuery(SIMULATE)
   const { data: orderFormData, refetch } = useQuery(ORDERFORM, { ssr: false })
 
@@ -66,11 +70,13 @@ const AvailabilitySummary: StorefrontFunctionComponent<
   const { selectedItem, product } = skuSelector
   const hasShipping = orderFormData?.orderForm?.shippingData
 
+
   const buildResponse = (item: any) => {
     const [status] = item.items
     const [logistics] = item.logisticsInfo
     const { availability } = status
     const { slas } = logistics
+    const kmToMile = 0.621371
 
     if (availability === 'withoutStock') return
     if (availability === 'cannotBeDelivered')
@@ -94,6 +100,8 @@ const AvailabilitySummary: StorefrontFunctionComponent<
           isPickup: !!option.pickupStoreInfo.address,
           storeName: option.pickupStoreInfo.friendlyName,
           days: parseInt(option.shippingEstimate.replace(/\D/g, ''), 10),
+          distance: option.pickupDistance,
+          measurements: measurements
         }
       })
       .sort((a: any, b: any) => {
@@ -211,6 +219,27 @@ const AvailabilitySummary: StorefrontFunctionComponent<
                   : `${styles.getInDays}`
               }`}
             >
+              {option.distance != null ?
+
+                <span className={styles.distance}>
+                  <FormattedMessage id="store/location-availability.distance.title" /> {' '}
+                  <span className={styles.distanceEstimate}>
+                    { option.mesurements == 'kilometers' ?
+                        option.distance : option.distance * kmToMile
+                    }
+
+                    {' '}
+                  </span>
+                  { option.measurements === 'miles' ?
+                    <FormattedMessage id="store/location-availability.distance.miles" />
+                    :
+                    <FormattedMessage id="store/location-availability.distance.kilometers" />
+                  }
+                  {' '}
+                    <FormattedMessage id="store/location-availability.distance.away" />
+                </span> : ('')
+               }
+
               <span className={styles.regularShippingLabel}>
                 <FormattedMessage id="store/location-availability.shipping-label" />
               </span>{' '}
@@ -315,6 +344,21 @@ const messages = defineMessages({
     id:
       'admin/editor.location-availability.product-location-availability.orderBy.cheaper',
   },
+  distance: {
+    defaultMessage: '',
+    id:
+      'admin/editor.location-availability.product-location-availability.distance.title',
+  },
+  miles: {
+    defaultMessage: '',
+    id:
+      'admin/editor.location-availability.product-location-availability.distance.miles',
+  },
+  kilometers: {
+    defaultMessage: '',
+    id:
+      'admin/editor.location-availability.product-location-availability.distance.kilometers',
+  },
 })
 
 AvailabilitySummary.schema = {
@@ -342,6 +386,14 @@ AvailabilitySummary.schema = {
       default: true,
       isLayout: true,
     },
+    distanceMeasurements: {
+      title: messages.distance,
+      type: 'string',
+      enum: ['miles', 'kilometers'],
+      enumNames: [messages.miles, messages.kilometers],
+      default: 'miles',
+      isLayout: true,
+    },
   },
 }
 
@@ -349,6 +401,7 @@ AvailabilitySummary.defaultProps = {
   maxItems: DEFAULT.MAX_ITEMS,
   orderBy: DEFAULT.ORDER_BY,
   pickupFirst: DEFAULT.PICKUP_FIRST,
+  measurements: DEFAULT.MEASUREMENTS
 }
 
 export default injectIntl(AvailabilitySummary)

@@ -33,3 +33,11 @@
 .getInDays {
   font-size: 13px;
 }
+.distance {
+  display: block;
+  font-weight: 600;
+}
+
+.distanceEstimate {
+  font-weight: 600;
+}
