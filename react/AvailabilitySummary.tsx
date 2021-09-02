@@ -19,7 +19,7 @@ const DEFAULT = {
   MAX_ITEMS: 2,
   ORDER_BY: 'faster',
   PICKUP_FIRST: true,
-  MEASUREMENTS: 'miles'
+  MEASUREMENTS: 'miles',
 }
 
 const CSS_HANDLES = [
@@ -36,13 +36,13 @@ const CSS_HANDLES = [
 interface CheckAvailabilityProps {
   maxItems: number
   orderBy: string
-  pickupFirst: boolean,
+  pickupFirst: boolean
   measurements: string
 }
 
 const AvailabilitySummary: StorefrontFunctionComponent<
   WrappedComponentProps & CheckAvailabilityProps
-> = ({ intl, maxItems, orderBy, pickupFirst, measurements}: any) => {
+> = ({ intl, maxItems, orderBy, pickupFirst, measurements }: any) => {
   const [getSimulation, { data, loading }] = useLazyQuery(SIMULATE)
   const { data: orderFormData, refetch } = useQuery(ORDERFORM, { ssr: false })
 
@@ -69,7 +69,6 @@ const AvailabilitySummary: StorefrontFunctionComponent<
 
   const { selectedItem, product } = skuSelector
   const hasShipping = orderFormData?.orderForm?.shippingData
-
 
   const buildResponse = (item: any) => {
     const [status] = item.items
@@ -101,7 +100,7 @@ const AvailabilitySummary: StorefrontFunctionComponent<
           storeName: option.pickupStoreInfo.friendlyName,
           days: parseInt(option.shippingEstimate.replace(/\D/g, ''), 10),
           distance: option.pickupDistance,
-          measurements: measurements
+          measurements,
         }
       })
       .sort((a: any, b: any) => {
@@ -219,27 +218,24 @@ const AvailabilitySummary: StorefrontFunctionComponent<
                   : `${styles.getInDays}`
               }`}
             >
-              {option.distance != null ?
-
+              {option.distance != null ? (
                 <span className={styles.distance}>
-                  <FormattedMessage id="store/location-availability.distance.title" /> {' '}
+                  <FormattedMessage id="store/location-availability.distance.title" />{' '}
                   <span className={styles.distanceEstimate}>
-                    { option.mesurements == 'kilometers' ?
-                        option.distance : option.distance * kmToMile
-                    }
-
-                    {' '}
+                    {option.mesurements === 'kilometers'
+                      ? option.distance
+                      : option.distance * kmToMile}{' '}
                   </span>
-                  { option.measurements === 'miles' ?
+                  {option.measurements === 'miles' ? (
                     <FormattedMessage id="store/location-availability.distance.miles" />
-                    :
+                  ) : (
                     <FormattedMessage id="store/location-availability.distance.kilometers" />
-                  }
-                  {' '}
-                    <FormattedMessage id="store/location-availability.distance.away" />
-                </span> : ('')
-               }
-
+                  )}{' '}
+                  <FormattedMessage id="store/location-availability.distance.away" />
+                </span>
+              ) : (
+                ''
+              )}
               <span className={styles.regularShippingLabel}>
                 <FormattedMessage id="store/location-availability.shipping-label" />
               </span>{' '}
@@ -401,7 +397,7 @@ AvailabilitySummary.defaultProps = {
   maxItems: DEFAULT.MAX_ITEMS,
   orderBy: DEFAULT.ORDER_BY,
   pickupFirst: DEFAULT.PICKUP_FIRST,
-  measurements: DEFAULT.MEASUREMENTS
+  measurements: DEFAULT.MEASUREMENTS,
 }
 
 export default injectIntl(AvailabilitySummary)
