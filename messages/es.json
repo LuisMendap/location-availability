@@ -9,6 +9,7 @@
   "admin/editor.location-availability.availability-header.title": "Encabezado de disponibilidad",
   "admin/editor.location-availability.availability-header.description": "Encabezado de la sección de disponibilidad de la página de detalle del producto, mostrando el código postal actual del cliente",
   "admin/editor.location-availability.availability-header.styleAsLink": "Si es verdadero, muestra el código postal del cliente como un enlace en el que se puede hacer clic",
+  "admin/editor.location-availability.product-location-availability.distance.title": "Distancia:",
   "admin/editor.location-availability.product-location-availability.distance.miles": "Millas",
   "admin/editor.location-availability.product-location-availability.distance.kilometers": "Kilómeters",
   "store/location-availability.shipping-label": "Entrega:",
