@@ -36,7 +36,7 @@ interface CheckAvailabilityProps {
   maxItems: number
   orderBy: string
   pickupFirst: boolean
-  measurements?: string
+  showDistance?: string
 }
 
 const AvailabilitySummary: StorefrontFunctionComponent<

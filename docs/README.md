@@ -37,7 +37,7 @@ This block summarizes a product's availability and is best used on product shelv
 | `maxItems`     | `number`  | Maximum number of availability options shown per product      | `2`           |
 | `orderBy`      | `enum`    | Sort the availability options by `faster` or `cheaper`        | `faster`      |
 | `pickupFirst`  | `boolean` | If available, show in-store pickup before other options       | `true`        |
-| `measurements` | `string`  | Add the necessary measurement options `kilometers` or `miles` | `miles`       |
+| `showDistance` | `string`  | Add the necessary measurement options `kilometers` or `miles` | `miles`       |
 
 **Example**
 
@@ -57,7 +57,7 @@ This block summarizes a product's availability and is best used on product shelv
 +      "maxItems": 3
 +      "orderBy": "cheaper"
 +      "pickupFirst": false,
-+      "measurements": "kilometers"
++      "showDistance": "miles"
 +    }
 +  }
 ...
