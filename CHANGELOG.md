@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- pickupDistance to the `getSimulation` query
+- Add distance value as `Distance {value} km/mi away`
+
 ## [0.2.7] - 2021-08-23
 
 ### Added

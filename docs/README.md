@@ -32,11 +32,12 @@ Now, you are able to use the blocks exported by the `location-availability` app:
 
 This block summarizes a product's availability and is best used on product shelves. By default it will show the two fastest shipping options (or one shipping option and the fastest in-store pickup option). Alternative configurations are available using the props below:
 
-| Prop name     | Type      | Description                                              | Default value |
-| ------------- | --------- | -------------------------------------------------------- | ------------- |
-| `maxItems`    | `number`  | Maximum number of availability options shown per product | `2`           |
-| `orderBy`     | `enum`    | Sort the availability options by `faster` or `cheaper`   | `faster`      |
-| `pickupFirst` | `boolean` | If available, show in-store pickup before other options  | `true`        |
+| Prop name      | Type      | Description                                                   | Default value |
+|----------------|-----------|---------------------------------------------------------------|---------------|
+| `maxItems`     | `number`  | Maximum number of availability options shown per product      | `2`           |
+| `orderBy`      | `enum`    | Sort the availability options by `faster` or `cheaper`        | `faster`      |
+| `pickupFirst`  | `boolean` | If available, show in-store pickup before other options       | `true`        |
+| `showDistance` | `string`  | Add the necessary measurement options `kilometers` or `miles` | `miles`       |
 
 **Example**
 
@@ -55,7 +56,8 @@ This block summarizes a product's availability and is best used on product shelv
 +    "props": {
 +      "maxItems": 3
 +      "orderBy": "cheaper"
-+      "pickupFirst": false
++      "pickupFirst": false,
++      "showDistance": "miles"
 +    }
 +  }
 ...
@@ -178,6 +180,8 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `shippingDeliveryEstimate` |
 | `shippingDeliveryPrice`    |
 | `estimateTranslated`       |
+| `distance`                 |
+| `distanceEstimate`         |
 
 <!-- DOCS-IGNORE:start -->
 
