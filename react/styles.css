@@ -36,8 +36,18 @@
 .distance {
   display: block;
   font-weight: 600;
+  width: 50%;
 }
-
 .distanceEstimate {
-  font-weight: 600;
+  font-weight: 400;
+  display: block;
+}
+.addressDistanceContainer {
+  display: flex;
+}
+.addressCity {
+  width: 50%;
+}
+.addressZip {
+  display: block;
 }

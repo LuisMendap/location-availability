@@ -37,11 +37,19 @@ interface CheckAvailabilityProps {
   orderBy: string
   pickupFirst: boolean
   showDistance?: string
+  showAddressInfo?: boolean
 }
 
 const AvailabilitySummary: StorefrontFunctionComponent<
   WrappedComponentProps & CheckAvailabilityProps
-> = ({ intl, maxItems, orderBy, pickupFirst, showDistance }: any) => {
+> = ({
+  intl,
+  maxItems,
+  orderBy,
+  pickupFirst,
+  showDistance,
+  showAddressInfo,
+}: any) => {
   const [getSimulation, { data, loading }] = useLazyQuery(SIMULATE)
   const { data: orderFormData, refetch } = useQuery(ORDERFORM, { ssr: false })
 
@@ -97,9 +105,12 @@ const AvailabilitySummary: StorefrontFunctionComponent<
           price: option.price,
           isPickup: !!option.pickupStoreInfo.address,
           storeName: option.pickupStoreInfo.friendlyName,
+          storeZipCode: option.pickupStoreInfo.address.postalCode,
+          storeCity: option.pickupStoreInfo.address.city,
           days: parseInt(option.shippingEstimate.replace(/\D/g, ''), 10),
           distance: option.pickupDistance,
           showDistance,
+          showAddressInfo,
         }
       })
       .sort((a: any, b: any) => {
@@ -152,6 +163,40 @@ const AvailabilitySummary: StorefrontFunctionComponent<
         >
           {option.isPickup && (
             <span className={`${styles.pickUp}`}>
+              {option.showDistance ? (
+                option.distance != null ? (
+                  <div className={styles.addressDistanceContainer}>
+                    {option.showAddressInfo ? (
+                      <span className={styles.addressCity}>
+                        {option.storeCity}{' '}
+                        <span className={styles.addressZip}>
+                          {option.storeZipCode}
+                        </span>
+                      </span>
+                    ) : (
+                      ''
+                    )}
+                    <span className={styles.distance}>
+                      <FormattedMessage id="store/location-availability.distance.title" />{' '}
+                      <span className={styles.distanceEstimate}>
+                        {option.mesurements === 'kilometers'
+                          ? option.distance
+                          : (option.distance * kmToMile).toFixed(1)}
+                        {option.showDistance === 'miles' ? (
+                          <FormattedMessage id="store/location-availability.distance.miles" />
+                        ) : (
+                          <FormattedMessage id="store/location-availability.distance.kilometers" />
+                        )}{' '}
+                        <FormattedMessage id="store/location-availability.distance.away" />
+                      </span>
+                    </span>
+                  </div>
+                ) : (
+                  ''
+                )
+              ) : (
+                ''
+              )}
               <span className={`${styles.pickUpLabel}`}>
                 <FormattedMessage id="store/location-availability.store-pickup-label" />
               </span>{' '}
@@ -219,20 +264,32 @@ const AvailabilitySummary: StorefrontFunctionComponent<
             >
               {option.showDistance ? (
                 option.distance != null ? (
-                  <span className={styles.distance}>
-                    <FormattedMessage id="store/location-availability.distance.title" />{' '}
-                    <span className={styles.distanceEstimate}>
-                      {option.mesurements === 'kilometers'
-                        ? option.distance
-                        : option.distance * kmToMile}{' '}
-                    </span>
-                    {option.showDistance === 'miles' ? (
-                      <FormattedMessage id="store/location-availability.distance.miles" />
+                  <div className={styles.addressDistanceContainer}>
+                    {option.showAddressInfo ? (
+                      <span className={styles.addressCity}>
+                        {option.storeCity}{' '}
+                        <span className={styles.addressZip}>
+                          {option.storeZipCode}
+                        </span>
+                      </span>
                     ) : (
-                      <FormattedMessage id="store/location-availability.distance.kilometers" />
-                    )}{' '}
-                    <FormattedMessage id="store/location-availability.distance.away" />
-                  </span>
+                      ''
+                    )}
+                    <span className={styles.distance}>
+                      <FormattedMessage id="store/location-availability.distance.title" />{' '}
+                      <span className={styles.distanceEstimate}>
+                        {option.mesurements === 'kilometers'
+                          ? option.distance
+                          : (option.distance * kmToMile).toFixed(1)}
+                        {option.showDistance === 'miles' ? (
+                          <FormattedMessage id="store/location-availability.distance.miles" />
+                        ) : (
+                          <FormattedMessage id="store/location-availability.distance.kilometers" />
+                        )}{' '}
+                        <FormattedMessage id="store/location-availability.distance.away" />
+                      </span>
+                    </span>
+                  </div>
                 ) : (
                   ''
                 )
