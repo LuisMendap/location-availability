@@ -109,8 +109,10 @@ const LocationQueryInner: FunctionComponent = ({ children }) => {
         location: {
           postalCode,
           country,
-          lat: geoCoordinates[1].toString(),
-          long: geoCoordinates[0].toString(),
+          lat:
+            geoCoordinates.length !== 0 ? geoCoordinates[1].toString() : null,
+          long:
+            geoCoordinates.length !== 0 ? geoCoordinates[0].toString() : null,
         },
       },
     })
