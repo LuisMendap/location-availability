@@ -105,8 +105,12 @@ const AvailabilitySummary: StorefrontFunctionComponent<
           price: option.price,
           isPickup: !!option.pickupStoreInfo.address,
           storeName: option.pickupStoreInfo.friendlyName,
-          storeZipCode: option.pickupStoreInfo.address.postalCode,
-          storeCity: option.pickupStoreInfo.address.city,
+          storeZipCode: option.pickupStoreInfo.address
+            ? option.pickupStoreInfo.address.postalCode
+            : null,
+          storeCity: option.pickupStoreInfo.address
+            ? option.pickupStoreInfo.address.city
+            : null,
           days: parseInt(option.shippingEstimate.replace(/\D/g, ''), 10),
           distance: option.pickupDistance,
           showDistance,
@@ -181,7 +185,7 @@ const AvailabilitySummary: StorefrontFunctionComponent<
                       <span className={styles.distanceEstimate}>
                         {option.mesurements === 'kilometers'
                           ? option.distance
-                          : (option.distance * kmToMile).toFixed(1)}
+                          : `${(option.distance * kmToMile).toFixed(1)} `}
                         {option.showDistance === 'miles' ? (
                           <FormattedMessage id="store/location-availability.distance.miles" />
                         ) : (
@@ -280,7 +284,7 @@ const AvailabilitySummary: StorefrontFunctionComponent<
                       <span className={styles.distanceEstimate}>
                         {option.mesurements === 'kilometers'
                           ? option.distance
-                          : (option.distance * kmToMile).toFixed(1)}
+                          : `${(option.distance * kmToMile).toFixed(1)} `}
                         {option.showDistance === 'miles' ? (
                           <FormattedMessage id="store/location-availability.distance.miles" />
                         ) : (
