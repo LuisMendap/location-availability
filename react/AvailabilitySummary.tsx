@@ -30,6 +30,8 @@ const CSS_HANDLES = [
   'ETA',
   'distance',
   'distanceEstimate',
+  'pickupMessage',
+  'pikcupStoreName',
 ] as const
 
 interface CheckAvailabilityProps {
@@ -204,8 +206,12 @@ const AvailabilitySummary: StorefrontFunctionComponent<
               <span className={`${styles.pickUpLabel}`}>
                 <FormattedMessage id="store/location-availability.store-pickup-label" />
               </span>{' '}
-              <FormattedMessage id="store/location-availability.store-pickup-message" />{' '}
-              {option.storeName}{' '}
+              <span className={`${styles.pickupMessage}`}>
+                <FormattedMessage id="store/location-availability.store-pickup-message" />{' '}
+              </span>
+              <span className={`${styles.pickupStoreName}`}>
+                {option.storeName}{' '}
+              </span>
               <span className={handles.ETA}>
                 {option.days === 0 ? (
                   intl.formatMessage({

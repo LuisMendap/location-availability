@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Added
+- Add Wrapper and CSS Handles to plain text
+
 ### Fixed
 - Fix availability map function add default value when empty
 - Fix issue in PDP when geolocation lat long is empty
