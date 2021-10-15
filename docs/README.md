@@ -184,6 +184,8 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `estimateTranslated`       |
 | `distance`                 |
 | `distanceEstimate`         |
+| `pickupMessage`            |
+| `pickupStoreName`          |
 
 <!-- DOCS-IGNORE:start -->
 

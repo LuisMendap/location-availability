@@ -51,3 +51,9 @@
 .addressZip {
   display: block;
 }
+.pickupMessage {
+  font-size: 14px;
+}
+.pickupStoreName {
+  font-size: 14px;
+}
